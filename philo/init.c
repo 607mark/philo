@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int populate_philos(t_main_data *data)
+int populate_philos(t_data *data)
 {
     unsigned long long i;
 
@@ -32,7 +32,7 @@ int populate_philos(t_main_data *data)
     return (0);
 
 }
-int init_forks(t_main_data *data)
+int init_forks(t_data *data)
 {
     unsigned long long i;
 
@@ -48,7 +48,7 @@ int init_forks(t_main_data *data)
     } 
     return (0);
 }
-int init_philos(t_main_data *data)
+int init_philos(t_data *data)
 {
    unsigned long long i;
     data->philos = malloc(data->n_philos * sizeof(t_ph));
@@ -58,13 +58,16 @@ int init_philos(t_main_data *data)
     memset(data->philos, 0, sizeof(t_ph) * data->n_philos);
     while(i < data->n_philos)
     {
+        if (pthread_mutex_init(&(data->philos[i].mutex), NULL))
+            return (1);
         data->philos[i].id = i;
+        data->philos[i].data = (void *)data;
         i++;
     }
     return (0);
 }
 
-int malloc_threads(t_main_data *data)
+int malloc_threads(t_data *data)
 {
     data->threads = malloc(data->n_philos * sizeof(pthread_t));
     if (!data->threads)
@@ -72,13 +75,13 @@ int malloc_threads(t_main_data *data)
     return (0); 
 }
 
-int init_time(t_main_data *data)
+int init_time(t_data *data)
 {
     data = (void *)data;
     return (0);
 }
 
-int init_simulation(t_main_data *data)
+int init_simulation(t_data *data)
 {
     if (init_philos(data))
         return (1);

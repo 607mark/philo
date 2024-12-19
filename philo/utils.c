@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int free_heap_allocated(t_main_data *data)
+int free_heap_allocated(t_data *data)
 {
 	free(data->forks);
 	free(data->philos);

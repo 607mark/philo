@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void print_util(t_main_data *data)
+void print_util(t_data *data)
 {
 	unsigned long long i = 0;
 	while(i < data->n_philos)
@@ -26,9 +26,8 @@ void print_util(t_main_data *data)
 
 int main(int ac, char **av)
 {
-	t_main_data data;
+	t_data data;
 
-	memset(&data, 0, sizeof(t_main_data));
 	if (parse_input(ac, av, &data))
 		return(1);
 	if (validate_input(&data))
