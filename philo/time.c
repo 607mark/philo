@@ -29,9 +29,13 @@ void precise_usleep(long usec) {
 
 int main(void) 
 {
-	struct timeval time;
-	gettimeofday(&time, 0);
-	printf("%ld\n", time.tv_usec);
+	struct timeval start, end;
+	gettimeofday(&start, 0);
+	int i = 0;
+	while(i < 1000000)
+		i++;
+	gettimeofday(&end, 0);
+	printf("%ld\n", end.tv_usec - start.tv_usec);
 	
 
 

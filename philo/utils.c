@@ -12,6 +12,14 @@
 
 #include "philo.h"
 
+int free_heap_allocated(t_main_data *data)
+{
+	free(data->forks);
+	free(data->philos);
+	free(data->threads);
+	return (1);
+}
+
 static int	num_check(const char *s)
 {
 	int	i;
@@ -32,9 +40,9 @@ static int	num_check(const char *s)
 	return (0);
 }
 
-int	ph_str_to_num(const char *s, uint64_t *ret)
+int	ph_str_to_num(const char *s, unsigned long long *ret)
 {
-	uint64_t	res;
+	unsigned long long	res;
 
 	res = 0;
 	if (num_check(s))
@@ -42,7 +50,7 @@ int	ph_str_to_num(const char *s, uint64_t *ret)
 	while (*s != '\0' && *s >= '0' && *s <= '9')
 	{
 		res = res * 10 + (*(s++) - '0');
-		if (res > 184467440737095516)
+		if (res * 10 >= ULLONG_MAX)
 			return (print_err_return("too big number in the input\n", 1));
 	}
 	*ret = res;

@@ -23,11 +23,20 @@ int print_err_return(char *s, int r)
 	return (r);
 }	
 
-int init_philos(int ac, char **av, t_main_data *data)
+
+int validate_input(t_main_data *data)
 {
+	if (data->n_philos < 1)
+		return (print_err_return("Too few philos(0)\n", 1));
+	if (data->n_philos > 300)
+		return (print_err_return("Too many philos\n", 1));
+	return (0);
+}
+int parse_input(int ac, char **av, t_main_data *data)
+{
+	memset(data, 0, sizeof(t_main_data));
 	if (ac < 5 || ac > 6)
 		return (print_err_return("Wrong number of args\n", 1));
-	memset(data, 0, sizeof(t_main_data));
 	if (ph_str_to_num(av[1], &(data->n_philos)))
 		return (1);
 	if (ph_str_to_num(av[2], &(data->t_to_die)))
