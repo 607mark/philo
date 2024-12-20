@@ -55,7 +55,6 @@ typedef struct s_data
 } t_data;
 
 // Utils
-t_type access_status(int f, t_type type, t_data *d);
 int     ph_str_to_num(const char *s, unsigned long long *ret);
 int print_err_return(char *s, int r);
 int free_heap_allocated(t_data *data);
@@ -70,6 +69,11 @@ int run_simulation(t_data *data);
 
 //mutex utils
 bool access_bool(bool f, bool value, void *p, t_data *d);
+t_type access_status(bool f, t_type type, t_data *d);
+
+
+//routines
+void    *philo_routine(void *p);
 
 
 #endif

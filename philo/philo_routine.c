@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 20:39:40 by mshabano          #+#    #+#             */
-/*   Updated: 2024/12/20 20:39:42 by mshabano         ###   ########.fr       */
+/*   Created: 2024/12/20 20:32:29 by mshabano          #+#    #+#             */
+/*   Updated: 2024/12/20 20:32:31 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long long get_ms(void)
+void    *philo_routine(void *p)
 {
-	struct timeval t;
+    t_ph *ph;
+    
+    ph = (t_ph *)p;
+    while(access_status(0, 0, ph->data) != RUN)
+        usleep(50);
+     
 
-	memset(&t, 0, sizeof(struct timeval));
-	if (gettimeofday(t) == -1)
-		return (print_err_return("gettimeofday() err", 0));
-	return (t.tv_sec * 1000 + t.tv_usec / 1000);
-} 
-
-void ms_usleep(unsigned long long ms)
-{
-	unsigned long long st;
-	st = get_ms();
-	while(get_ms() - st < ms)
-		usleep(500);
 }
