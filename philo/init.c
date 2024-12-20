@@ -45,6 +45,7 @@ int init_forks(t_data *data)
         if (pthread_mutex_init(&(data->forks[i]), NULL))
             return (1);
         i++;
+        data->n_fork_mutex_init = i;
     } 
     return (0);
 }
@@ -62,6 +63,7 @@ int init_philos(t_data *data)
             return (1);
         data->philos[i].id = i;
         data->philos[i].data = (void *)data;
+        data->philos[i].mutex_init_status = 1;
         i++;
     }
     return (0);
@@ -75,21 +77,17 @@ int malloc_threads(t_data *data)
     return (0); 
 }
 
-int init_time(t_data *data)
-{
-    data = (void *)data;
-    return (0);
-}
-
 int init_simulation(t_data *data)
 {
+    if (pthread_mutex_init(&(data->main_mutex), NULL))
+            return (1);
+    else
+       data->main_mutex_init_status = 1;
     if (init_philos(data))
         return (1);
     if (init_forks((data)))
         return (1);
     if (populate_philos(data))
-        return (1);
-    if (init_time(data))
         return (1);
     if (malloc_threads(data))
         return (1);

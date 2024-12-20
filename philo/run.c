@@ -18,6 +18,9 @@ static int join_simulation_th(t_data *d, pthread_t *th, unsigned long long n)
         pthread_join(th[n], 0);
     if (++n == 0)
         pthread_join(d->monitor, 0);
+    else
+        return (1);
+    return (0);
 }
 
 static int create_monitor_th(t_data *d)
@@ -50,6 +53,8 @@ int run_simulation(t_data *d)
         return (print_err_return("error creating philo threads\n", 1));
     if (create_monitor_th(d))
         return (print_err_return("error creating monitor thread\n", 1));
+    else
+        access_status(1, RUN, d);
     if (join_simulation_th(d, d->threads, d->n_threads))
         return (print_err_return("error joining threads\n", 1));
     return (0);
