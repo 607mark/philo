@@ -43,7 +43,7 @@ typedef struct s_data
 	unsigned long long	n_t_to_eat;
 	bool	endless;
 	t_type	status;
-
+	unsigned long long  t_simulation_start;
 	pthread_mutex_t main_mutex;
 	bool main_mutex_init_status;
 	pthread_mutex_t *forks;
@@ -70,7 +70,7 @@ int run_simulation(t_data *data);
 //mutex utils
 bool access_bool(bool f, bool value, void *p, t_data *d);
 t_type access_status(bool f, t_type type, t_data *d);
-
+void display_msg(t_ph *ph, char *s);
 
 //routines
 void    *philo_routine(void *p);

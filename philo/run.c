@@ -54,7 +54,11 @@ int run_simulation(t_data *d)
     if (create_monitor_th(d))
         return (print_err_return("error creating monitor thread\n", 1));
     else
+    {
         access_status(1, RUN, d);
+        t_simulation_start = get_time();
+    }
+
     if (join_simulation_th(d, d->threads, d->n_threads))
         return (print_err_return("error joining threads\n", 1));
     return (0);

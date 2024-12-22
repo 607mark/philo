@@ -12,6 +12,13 @@
 
 #include "philo.h"
 
+void display_msg(t_ph *ph, char *s)
+{
+	phread_mutex_lock(ph->data->main_mutex);
+	if (access_status(ph->data->status == RUN))
+		printf("%llu %llu %s", timestamp_in_ms(ph->data->t_simulation_start, ph->id, s));
+	phread_mutex_unlock(ph->data->main_mutex);
+}
 bool access_bool(bool f, bool value, void *p, t_data *d)
 {
     bool return_value;

@@ -12,7 +12,9 @@
 
 #include "philo.h"
 
-unsigned long long get_ms(void)
+unsigned long long timestamp_in_ms()
+
+unsigned long long get_time(void)
 {
 	struct timeval t;
 
@@ -22,10 +24,11 @@ unsigned long long get_ms(void)
 	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 } 
 
-void ms_usleep(unsigned long long ms)
+int ms_usleep(unsigned long long ms)
 {
 	unsigned long long st;
-	st = get_ms();
-	while(get_ms() - st < ms)
+	st = get_time();
+	while(get_time() - st < ms)
 		usleep(500);
+	return (1);
 }
