@@ -14,10 +14,10 @@
 
 void display_msg(t_ph *ph, char *s)
 {
-	pthread_mutex_lock(&(ph->data->main_mutex));
-	if (access_status(0, ph->data->status == RUN, ph->data))
+	pthread_mutex_lock(&(ph->mutex));
+	if (access_status(0, ph->data->status, ph->data) == RUN)
 		printf("%llu %u %s\n", timestamp_in_ms(ph->data), ph->id, s);
-	pthread_mutex_unlock(&(ph->data->main_mutex));
+	pthread_mutex_unlock(&(ph->mutex));
 }
 bool access_bool(bool f, bool value, void *p, t_data *d)
 {

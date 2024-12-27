@@ -14,6 +14,7 @@
 
 void    *monitor_routine(void *p)
 {
+    printf("monitor routine here\n");
     p = p;
     ms_usleep(5000);
     return 0;

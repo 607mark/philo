@@ -15,8 +15,12 @@
 int wait_for_threads_creation(t_ph *ph)
 {
     while(access_status(0, 0, ph->data) != RUN)
-        usleep(50);
-    return (1);
+    {
+        printf("accessing status\n");
+         usleep(50);
+    }
+       
+    return (0);
 }
 void ph_think(t_ph *ph, int flag)
 {
@@ -46,9 +50,9 @@ int ph_sleep(t_ph *ph)
 void    *philo_routine(void *p)
 {
     t_ph *ph;
-    
     ph = (t_ph *)p;
     wait_for_threads_creation(ph);
+    printf("all threads created\n");
     if (ph->id % 2)
         ph_think(ph, 0);
     //while(access_status(0, 0, ph->data) == RUN)
