@@ -9,7 +9,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <limits.h>
+#include <sys/time.h>
 
+typedef struct s_data t_data;
 typedef enum e_status
 {
 	INIT,
@@ -31,7 +33,7 @@ typedef struct s_ph
 	bool mutex_init_status;
 	pthread_mutex_t *left;
 	pthread_mutex_t *right;
-	void *data;
+	t_data *data;
 } t_ph;
 
 typedef struct s_data
@@ -41,6 +43,7 @@ typedef struct s_data
 	unsigned long long	t_to_eat;
 	unsigned long long	t_to_sleep;
 	unsigned long long	n_t_to_eat;
+	long long	t_to_think;
 	bool	endless;
 	t_type	status;
 	unsigned long long  t_simulation_start;
@@ -54,26 +57,32 @@ typedef struct s_data
 	unsigned long long n_threads;
 } t_data;
 
-// Utils
+// utils
 int     ph_str_to_num(const char *s, unsigned long long *ret);
 int print_err_return(char *s, int r);
 int free_heap_allocated(t_data *data);
 
-// Input
+// input
 int	parse_input(int ac, char **av, t_data *data);
 int validate_input(t_data *data);
 
-// Simulation
+// simulation
 int init_simulation(t_data *data);
 int run_simulation(t_data *data);
 
-//mutex utils
+// mutex utils
 bool access_bool(bool f, bool value, void *p, t_data *d);
 t_type access_status(bool f, t_type type, t_data *d);
 void display_msg(t_ph *ph, char *s);
 
 //routines
 void    *philo_routine(void *p);
+void    *monitor_routine(void *p);
+
+//time utils
+unsigned long long get_time(void);
+int ms_usleep(unsigned long long ms);
+unsigned long long timestamp_in_ms(t_data *data);
 
 
 #endif

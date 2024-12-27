@@ -24,6 +24,11 @@ void print_util(t_data *data)
 	}
 }
 
+int finish_simulation( t_data *data)
+{
+	free_heap_allocated(data);
+	return (1);
+}
 int main(int ac, char **av)
 {
 	t_data data;
@@ -53,6 +58,6 @@ int main(int ac, char **av)
 	printf("%lld\n", data.n_t_to_eat);
 	*/
 	
-	free_heap_allocated(&data);
+	
 	return (0);
 }

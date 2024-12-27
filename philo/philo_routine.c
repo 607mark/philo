@@ -20,25 +20,28 @@ int wait_for_threads_creation(t_ph *ph)
 }
 void ph_think(t_ph *ph, int flag)
 {
-    unsigned long long t_t_think;
-
-    t_t_think = 0;
-    if (p->id % 2 && !flag)
+    display_msg(ph, "is thinking");
+    if (ph->id % 2 && !flag)
     {
-        display_msg(ph, char "is thinking");
-        return (ms_usleep(1));
+        ms_usleep(1);
+        return ;
     }
-    t_t_think = ph->t_to_die - ph->t_to_eat - ph->t_to_sleep;
-    ms_usleep(t_t_think / 2);
+     
+    if (ph->data->t_to_think > 0)
+        ms_usleep(ph->data->t_to_think / 2);
 }
 
 int ph_eat(t_ph *ph)
 {
-
+    display_msg(ph, "is eating");
+    ms_usleep(100);
+    return (0);
 }
 int ph_sleep(t_ph *ph)
 {
-    
+    display_msg(ph, "is sleeping");
+    ms_usleep(100);
+    return (0);
 }
 void    *philo_routine(void *p)
 {
@@ -48,13 +51,13 @@ void    *philo_routine(void *p)
     wait_for_threads_creation(ph);
     if (ph->id % 2)
         ph_think(ph, 0);
-    while(access_status(0, 0, ph->data) == RUN)
-    {
+    //while(access_status(0, 0, ph->data) == RUN)
+    //{
         if(ph_eat(ph))
-            return ;
+            return 0;
         if (ph_sleep(ph))
-            return ;
-        ph_think(ph);
-    }
-
+            return 0;
+        ph_think(ph, 1);
+  //  }
+    return (0);
 }

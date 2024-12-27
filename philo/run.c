@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static int join_simulation_th(t_data *d, pthread_t *th, unsigned long long n)
+/*static int join_simulation_th(t_data *d, pthread_t *th, long long n)
 {
     while(--n >= 0)
         pthread_join(th[n], 0);
@@ -22,7 +22,7 @@ static int join_simulation_th(t_data *d, pthread_t *th, unsigned long long n)
         return (1);
     return (0);
 }
-
+*/
 static int create_monitor_th(t_data *d)
 {
     if (pthread_create(&(d->monitor), 0, monitor_routine, d))
@@ -36,9 +36,9 @@ static int create_ph_th(t_ph *ph, pthread_t *th, t_data *d)
 
     i = &(d->n_threads);
     n= d->n_philos;
-    while (i < n)
+    while (*i < n)
     {
-        if (pthread_create(&(th[*i]), 0, philo_routine, ph[*i]))
+        if (pthread_create(&(th[*i]), 0, philo_routine, &(ph[*i])))
             return (1);
         else
             (*i)++;
@@ -53,13 +53,11 @@ int run_simulation(t_data *d)
         return (print_err_return("error creating philo threads\n", 1));
     if (create_monitor_th(d))
         return (print_err_return("error creating monitor thread\n", 1));
-    else
-    {
-        access_status(1, RUN, d);
-        t_simulation_start = get_time();
-    }
-
-    if (join_simulation_th(d, d->threads, d->n_threads))
-        return (print_err_return("error joining threads\n", 1));
+    if ((d->t_to_die - d->t_to_eat - d->t_to_sleep) > 0)
+        d->t_to_think = (d->t_to_die - d->t_to_eat - d->t_to_sleep) / 2;
+     d->t_simulation_start = get_time();
+    access_status(1, RUN, d);
+   // if (join_simulation_th(d, d->threads, d->n_threads))
+  //      return (print_err_return("error joining threads\n", 1));
     return (0);
 }   

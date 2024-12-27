@@ -14,22 +14,22 @@
 
 void display_msg(t_ph *ph, char *s)
 {
-	phread_mutex_lock(ph->data->main_mutex);
-	if (access_status(ph->data->status == RUN))
-		printf("%llu %llu %s", timestamp_in_ms(ph->data->t_simulation_start, ph->id, s));
-	phread_mutex_unlock(ph->data->main_mutex);
+	pthread_mutex_lock(&(ph->data->main_mutex));
+	if (access_status(0, ph->data->status == RUN, ph->data))
+		printf("%llu %u %s\n", timestamp_in_ms(ph->data), ph->id, s);
+	pthread_mutex_unlock(&(ph->data->main_mutex));
 }
 bool access_bool(bool f, bool value, void *p, t_data *d)
 {
     bool return_value;
 
     return_value = 0;
-    phread_mutex_lock(d->main_mutex);
+    pthread_mutex_lock(&(d->main_mutex));
 	if (!f)
 		return_value = *(bool*)p;
 	if (f)
 		*(bool*)p = value;	
-	phtead_mutex_unlock(d->main_mutex);
+	pthread_mutex_unlock(&(d->main_mutex));
 	return (return_value);
 }
 
@@ -38,11 +38,11 @@ t_type access_status(bool f, t_type type, t_data *d)
 	t_type return_value;
 
 	return_value = 0;
-	phread_mutex_lock(d->main_mutex);
+	pthread_mutex_lock(&(d->main_mutex));
 	if (!f)
 		return_value =d->status;
 	if (f)
 		d->status = type;	
-	phtead_mutex_unlock(d->main_mutex);
+	pthread_mutex_unlock(&(d->main_mutex));
 	return (return_value);
 }

@@ -2,7 +2,12 @@ NAME = philo
 SRCS =  main.c \
 	utils.c \
 	input.c \
-	init.c
+	init.c \
+	monitor_routine.c \
+	mutex_utils.c \
+	philo_routine.c \
+	run.c \
+	time_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
