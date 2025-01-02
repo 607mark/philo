@@ -16,7 +16,7 @@ typedef enum e_status
 {
 	INIT,
 	RUN,
-	INTERRUPt,
+	INTERRUPT,
 }	t_type;
 
 
@@ -28,7 +28,7 @@ typedef struct s_ph
 	bool	eating;
 	int	meals;
 	unsigned long long init_time;
-	unsigned long long eat_time;
+	unsigned long long last_meal;
 	pthread_mutex_t mutex;
 	bool mutex_init_status;
 	pthread_mutex_t *left;
@@ -71,8 +71,8 @@ int init_simulation(t_data *data);
 int run_simulation(t_data *data);
 
 // mutex utils
-bool access_bool(bool f, bool value, void *p, t_data *d);
-t_type access_status(bool f, t_type type, t_data *d);
+bool access_bool(bool f, bool value, void *p, pthread_mutex_t *mutex);
+t_type access_status(bool f, t_type type, t_data *d, pthread_mutex_t *mutex);
 void display_msg(t_ph *ph, char *s);
 
 //routines

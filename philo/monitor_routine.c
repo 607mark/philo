@@ -14,8 +14,11 @@
 
 void    *monitor_routine(void *p)
 {
+    t_data *data;
+    data = (t_data *)p;
     printf("monitor routine here\n");
     p = p;
     ms_usleep(5000);
+    access_status(1, INTERRUPT, data, &(data->main_mutex));
     return 0;
 }

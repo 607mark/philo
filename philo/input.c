@@ -35,7 +35,7 @@ int validate_input(t_data *data)
 int parse_input(int ac, char **av, t_data *data)
 {
 	memset(data, 0, sizeof(t_data));
-	access_status(1, INIT, data);
+	data->status = INIT;
 	if (ac < 5 || ac > 6)
 		return (print_err_return("Wrong number of args\n", 1));
 	if (ph_str_to_num(av[1], &(data->n_philos)))
