@@ -27,10 +27,8 @@ typedef struct s_ph
 	bool	dead;
 	bool	eating;
 	int	meals;
-	unsigned long long init_time;
 	unsigned long long last_meal;
 	pthread_mutex_t mutex;
-	bool mutex_init_status;
 	pthread_mutex_t *left;
 	pthread_mutex_t *right;
 	t_data *data;

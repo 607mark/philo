@@ -63,7 +63,6 @@ int init_philos(t_data *data)
             return (1);
         data->philos[i].id = i;
         data->philos[i].data = (void *)data;
-        data->philos[i].mutex_init_status = 1;
         i++;
     }
     return (0);

@@ -14,11 +14,27 @@
 
 void    *monitor_routine(void *p)
 {
-    t_data *data;
-    data = (t_data *)p;
+    t_data *d;
+    unsigned long long i;
+    d = (t_data *)p;
     printf("monitor routine here\n");
-    p = p;
-    ms_usleep(5000);
-    access_status(1, INTERRUPT, data);
+    while(access_status(0, 0, d) != RUN)
+    {
+        printf("hui \n");
+         usleep(100);
+    }
+    while (1)
+    {
+        i = 0;
+        while (i < d->n_philos)
+        {
+            pthread_mutex_lock(&((d->philos + i)->mutex));
+            if (get_time() - ((d->philos + i)->last_meal) > d->t_to_die)
+                return((void *)access_status(1, INTERRUPT, d));
+            pthread_mutex_unlock(&((d->philos + i)->mutex));
+            i++;
+        }
+    }
+
     return 0;
 }
