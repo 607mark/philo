@@ -58,7 +58,7 @@ int run_simulation(t_data *d)
     if ((d->t_to_die - d->t_to_eat - d->t_to_sleep) > 0)
         d->t_to_think = (d->t_to_die - d->t_to_eat - d->t_to_sleep) / 2;
      d->t_simulation_start = get_time();
-    access_status(1, RUN, d, &(d->main_mutex));
+    access_status(1, RUN, d);
     ms_usleep(10000);
    // if (join_simulation_th(d, d->threads, d->n_threads))
   //      return (print_err_return("error joining threads\n", 1));

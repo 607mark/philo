@@ -19,6 +19,6 @@ void    *monitor_routine(void *p)
     printf("monitor routine here\n");
     p = p;
     ms_usleep(5000);
-    access_status(1, INTERRUPT, data, &(data->main_mutex));
+    access_status(1, INTERRUPT, data);
     return 0;
 }

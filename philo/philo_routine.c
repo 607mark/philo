@@ -14,10 +14,10 @@
 
 void wait_sim_to_run(t_ph *ph)
 {
-    while(access_status(0, 0, ph->data, &(ph->mutex)) != RUN)
+    while(access_status(0, 0, ph->data) != RUN)
     {
         printf("accessing status\n");
-         usleep(50);
+         usleep(100);
     }
 }
 void ph_think(t_ph *ph, int flag)
@@ -25,7 +25,7 @@ void ph_think(t_ph *ph, int flag)
     display_msg(ph, "is thinking");
     if (ph->id % 2 && !flag)
     {
-        ms_usleep(ph->data->t_to_eat + 1);
+        ms_usleep(ph->data->t_to_eat);
         return ;
     }                                                                                                                           
     if (ph->data->t_to_think > 0)
@@ -34,9 +34,21 @@ void ph_think(t_ph *ph, int flag)
 
 int ph_eat(t_ph *ph)
 {
-    pthread_mutex_lock(ph->left);
+    pthread_mutex_t *first;
+    pthread_mutex_t *second;
+    
+    if (ph->right < ph->left)
+    {
+        first = ph->right;
+        second = ph->left;
+    } else
+    {
+        first = ph->left;
+        second = ph->right;
+    }
+    pthread_mutex_lock(first);
     display_msg(ph, "has taken a fork");
-    pthread_mutex_lock(ph->right);
+    pthread_mutex_lock(second);
     display_msg(ph, "has taken a fork");
     display_msg(ph, "is eating");
     pthread_mutex_lock(&(ph->mutex));
@@ -44,8 +56,8 @@ int ph_eat(t_ph *ph)
     (ph->meals)++;
     pthread_mutex_unlock(&(ph->mutex));
     ms_usleep(ph->data->t_to_eat);
-    pthread_mutex_unlock(ph->left);
-    pthread_mutex_unlock(ph->right);
+    pthread_mutex_unlock(second);
+    pthread_mutex_unlock(first);
     return (0);
 }
 int ph_sleep(t_ph *ph)
@@ -63,7 +75,7 @@ void    *philo_routine(void *p)
     if (ph->id % 2)
         ph_think(ph, 0);
     ph->last_meal = get_time();
-    while(access_status(0, 0, ph->data, &(ph->mutex)) == RUN)
+    while(access_status(0, 0, ph->data) == RUN)
     {
         if(ph_eat(ph))
             return 0;

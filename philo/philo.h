@@ -48,13 +48,15 @@ typedef struct s_data
 	t_type	status;
 	unsigned long long  t_simulation_start;
 	pthread_mutex_t main_mutex;
-	bool main_mutex_init_status;
+	pthread_mutex_t msg_mutex;
+	pthread_mutex_t status_mutex;
 	pthread_mutex_t *forks;
 	unsigned long long n_fork_mutex_init;
 	t_ph *philos;
 	pthread_t		monitor;
 	pthread_t		*threads;
 	unsigned long long n_threads;
+
 } t_data;
 
 // utils
@@ -71,8 +73,8 @@ int init_simulation(t_data *data);
 int run_simulation(t_data *data);
 
 // mutex utils
-bool access_bool(bool f, bool value, void *p, pthread_mutex_t *mutex);
-t_type access_status(bool f, t_type type, t_data *d, pthread_mutex_t *mutex);
+//bool access_bool(bool f, bool value, void *p, pthread_mutex_t *mutex);
+t_type access_status(bool f, t_type type, t_data *d);
 void display_msg(t_ph *ph, char *s);
 
 //routines

@@ -81,8 +81,10 @@ int init_simulation(t_data *data)
 {
     if (pthread_mutex_init(&(data->main_mutex), NULL))
             return (1);
-    else
-       data->main_mutex_init_status = 1;
+    if (pthread_mutex_init(&(data->msg_mutex), NULL))
+            return (1);
+    if (pthread_mutex_init(&(data->status_mutex), NULL))
+            return (1);
     if (init_philos(data))
         return (1);
     if (init_forks((data)))
