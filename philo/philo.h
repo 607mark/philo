@@ -26,7 +26,7 @@ typedef struct s_ph
 	pthread_t th;
 	bool	dead;
 	bool	eating;
-	int	meals;
+	unsigned long long	meals;
 	unsigned long long last_meal;
 	pthread_mutex_t mutex;
 	pthread_mutex_t *left;

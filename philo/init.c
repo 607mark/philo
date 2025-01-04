@@ -51,7 +51,7 @@ int init_forks(t_data *data)
 }
 int init_philos(t_data *data)
 {
-   unsigned long long i;
+    unsigned long long i;
     data->philos = malloc(data->n_philos * sizeof(t_ph));
     if (!data->philos)
         return (1);
@@ -63,6 +63,7 @@ int init_philos(t_data *data)
             return (1);
         data->philos[i].id = i;
         data->philos[i].data = (void *)data;
+        data->philos[i].last_meal = get_time();
         i++;
     }
     return (0);
