@@ -48,14 +48,13 @@ int ph_eat(t_ph *ph)
         first = ph->left;
         second = ph->right;
     }
-    
     pthread_mutex_lock(first);
     display_msg(ph, "has taken a fork");
     pthread_mutex_lock(second);
     display_msg(ph, "has taken a fork");
-    display_msg(ph, "is eating");
     pthread_mutex_lock(&(ph->mutex));
     ph->last_meal = get_time();
+    display_msg(ph, "is eating");
     (ph->meals)++;
     pthread_mutex_unlock(&(ph->mutex));
     if (access_status(0, 0, ph->data) != RUN)

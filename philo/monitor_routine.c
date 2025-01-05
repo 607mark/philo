@@ -25,7 +25,7 @@ void *monitor_routine(void *p)
     while (access_status(0, 0, d) == RUN)
     {
         i = 0;
-        all_ate_enough = !d->endless;  // Only check meals if not endless
+        all_ate_enough = !d->endless;  
         
         while (i < d->n_philos)
         {
@@ -40,7 +40,6 @@ void *monitor_routine(void *p)
             // Check meals if not endless
             if (!d->endless && d->philos[i].meals < d->n_t_to_eat)
                 all_ate_enough = false;
-                
             pthread_mutex_unlock(&((d->philos + i)->mutex));
             i++;
         }

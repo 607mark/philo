@@ -32,6 +32,8 @@ int populate_philos(t_data *data)
     return (0);
 
 }
+
+
 int init_forks(t_data *data)
 {
     unsigned long long i;
