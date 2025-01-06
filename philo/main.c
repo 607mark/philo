@@ -35,15 +35,16 @@ int main(int ac, char **av)
 
 	if (parse_input(ac, av, &data))
 		return(1);
-	printf("%lld\n", data.n_philos);
-	printf("%lld\n", data.t_to_die);
-	printf("%lld\n", data.t_to_eat);
-	printf("%lld\n", data.t_to_sleep);
-	printf("%lld\n", data.n_t_to_eat);
+	// printf("%lld\n", data.n_philos);
+	// printf("%lld\n", data.t_to_die);
+	// printf("%lld\n", data.t_to_eat);
+	// printf("%lld\n", data.t_to_sleep);
+	// printf("%lld\n", data.n_t_to_eat);
 	if (validate_input(&data))
 		return (1);
 	if (init_simulation(&data))
 		return (free_heap_allocated(&data));
+
 	if (run_simulation(&data) && finish_simulation(&data))
 		return (1);
 	finish_simulation(&data);
@@ -54,10 +55,10 @@ int main(int ac, char **av)
 
 
 
-	/*
-	print_util(&data);
+
+	// print_util(&data);
 	
-	*/
+
 	
 	
 	return (0);

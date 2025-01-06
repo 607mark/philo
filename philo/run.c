@@ -55,7 +55,7 @@ int run_simulation(t_data *d)
         return (print_err_return("error creating philo threads\n", 1));
     if (create_monitor_th(d))
         return (print_err_return("error creating monitor thread\n", 1));
-    usleep(100);
+    usleep(200);
     d->t_simulation_start = get_time();
     access_status(1, RUN, d);
     for (unsigned long long i = 0; i < d->n_philos; i++) {

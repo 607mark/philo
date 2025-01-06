@@ -18,7 +18,7 @@ int populate_philos(t_data *data)
 
     data->philos[0].left = &(data->forks[0]);
     if (data->n_philos > 1)
-     data->philos[0].right = &(data->forks[data->n_philos - 1]);
+     data->philos[0].right = &(data->forks[1]);
     i = 1;
     while(i < data->n_philos - 1)
     {
@@ -63,7 +63,7 @@ int init_philos(t_data *data)
     {
         if (pthread_mutex_init(&(data->philos[i].mutex), NULL))
             return (1);
-        data->philos[i].id = i;
+        data->philos[i].id = i + 1;
         data->philos[i].data = (void *)data;
         data->philos[i].last_meal = get_time();
         i++;

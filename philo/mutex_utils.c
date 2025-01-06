@@ -16,7 +16,7 @@ void display_msg(t_ph *ph, char *s)
 {
 	pthread_mutex_lock(&(ph->data->msg_mutex));
 	if (access_status(0, 0, ph->data) == RUN)
-		printf("%llu %u %s\n", timestamp_in_ms(ph->data), ph->id, s);
+		printf("%llu %u %s\n", timestamp_in_ms(ph->data), ph->id + 1, s);
 	pthread_mutex_unlock(&(ph->data->msg_mutex));
 }
 t_type access_status(bool f, t_type type, t_data *d)
