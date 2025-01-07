@@ -33,37 +33,6 @@ int ph_think(t_ph *ph, int flag)
         ms_usleep(ph->data->t_to_think);
     return (0);
 }
-
-int ph_eat(t_ph *ph)
-{
-    pthread_mutex_t *first;
-    pthread_mutex_t *second;
-    
-    if (ph->right < ph->left)
-    {
-        first = ph->right;
-        second = ph->left;
-    } else
-    {
-        first = ph->left;
-        second = ph->right;
-    }
-    pthread_mutex_lock(first);
-    display_msg(ph, "has taken a fork");
-    pthread_mutex_lock(second);
-    display_msg(ph, "has taken a fork");
-    display_msg(ph, "is eating");
-    pthread_mutex_lock(&(ph->mutex));
-    ph->last_meal = get_time();
-    (ph->meals)++;
-    pthread_mutex_unlock(&(ph->mutex));
-    if (access_status(0, 0, ph->data) != RUN)
-        return (1);
-    ms_usleep(ph->data->t_to_eat);
-    pthread_mutex_unlock(second);
-    pthread_mutex_unlock(first);
-    return (0);
-}
 int ph_sleep(t_ph *ph)
 {
     display_msg(ph, "is sleeping");
@@ -83,8 +52,6 @@ void *philo_routine(void *p)
     pthread_mutex_unlock(&(ph->mutex));
     if (ph->id % 2)
         ph_think(ph, 0);
-        
-  
     
     while (access_status(0, 0, ph->data) == RUN)
     {

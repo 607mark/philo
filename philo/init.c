@@ -15,7 +15,7 @@
 int populate_philos(t_data *data)
 {
     unsigned long long i;
-    
+
     i = 0;
     while(i < data->n_philos - 1)
     {
@@ -23,9 +23,9 @@ int populate_philos(t_data *data)
         data->philos[i].right = &(data->forks[i + 1]);
         i++;
     }
-    data->philos[data->n_philos - 1].left = &(data->forks[data->n_philos - 1]);
     if (data->n_philos > 1)
-        data->philos[data->n_philos - 1].right = &(data->forks[0]);
+    data->philos[data->n_philos - 1].right = &(data->forks[data->n_philos - 1]);
+    data->philos[data->n_philos - 1].left = &(data->forks[0]);
     return (0);
 
 }

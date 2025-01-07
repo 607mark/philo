@@ -78,6 +78,7 @@ void display_msg(t_ph *ph, char *s);
 //routines
 void    *philo_routine(void *p);
 void    *monitor_routine(void *p);
+int ph_eat(t_ph *ph);
 
 //time utils
 unsigned long long get_time(void);

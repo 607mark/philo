@@ -7,7 +7,8 @@ SRCS =  main.c \
 	mutex_utils.c \
 	philo_routine.c \
 	run.c \
-	time_utils.c
+	time_utils.c \
+	ph_eat.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -47,7 +47,7 @@ void *monitor_routine(void *p)
             access_status(1, INTERRUPT, d);
             return NULL;
         }
-        usleep(100);
+        usleep(70);
     }
     return NULL;
 }
