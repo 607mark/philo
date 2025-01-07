@@ -21,12 +21,16 @@ int unlock_forks(t_ph *ph)
 
 int lock_forks(t_ph *ph)
 {
+    usleep(20);
     pthread_mutex_lock(ph->left);
     display_msg(ph, "has taken a fork");
     if (ph->data->n_philos > 1)
         pthread_mutex_lock(ph->right);
     else
+    {
+        pthread_mutex_unlock(ph->left);
         return (1);
+    }
     display_msg(ph, "has taken a fork");
     return (0);
 }

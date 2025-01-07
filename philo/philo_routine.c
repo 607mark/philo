@@ -22,7 +22,7 @@ void wait_sim_to_run(t_ph *ph)
 int ph_think(t_ph *ph, int flag)
 {
     display_msg(ph, "is thinking");
-    if (ph->id % 2 && !flag)
+    if (!ph->id % 2 && !flag)
     {
         ms_usleep(ph->data->t_to_eat);
         return 0;
@@ -50,7 +50,7 @@ void *philo_routine(void *p)
     pthread_mutex_lock(&(ph->mutex));
     ph->last_meal = get_time();
     pthread_mutex_unlock(&(ph->mutex));
-    if (ph->id % 2)
+    if (!ph->id % 2)
         ph_think(ph, 0);
     
     while (access_status(0, 0, ph->data) == RUN)

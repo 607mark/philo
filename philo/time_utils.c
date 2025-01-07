@@ -31,6 +31,6 @@ int ms_usleep(unsigned long long ms)
 	unsigned long long st;
 	st = get_time();
 	while(get_time() - st < ms)
-		usleep(500);
+		usleep(50);
 	return (1);
 }

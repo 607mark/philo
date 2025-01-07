@@ -44,7 +44,7 @@ int main(int ac, char **av)
 		return (1);
 	if (init_simulation(&data))
 		return (free_heap_allocated(&data));
-
+	// print_util(&data);
 	if (run_simulation(&data) && finish_simulation(&data))
 		return (1);
 	finish_simulation(&data);
@@ -56,7 +56,7 @@ int main(int ac, char **av)
 
 
 
-	// print_util(&data);
+
 	
 
 	
