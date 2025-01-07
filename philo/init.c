@@ -15,11 +15,8 @@
 int populate_philos(t_data *data)
 {
     unsigned long long i;
-
-    data->philos[0].left = &(data->forks[0]);
-    if (data->n_philos > 1)
-     data->philos[0].right = &(data->forks[1]);
-    i = 1;
+    
+    i = 0;
     while(i < data->n_philos - 1)
     {
         data->philos[i].left = &(data->forks[i]);
