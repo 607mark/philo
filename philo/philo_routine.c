@@ -12,17 +12,12 @@
 
 #include "philo.h"
 
-void wait_sim_to_run(t_ph *ph)
-{
-    while(access_status(0, 0, ph->data) != RUN)
-    {
-        usleep(1000);
-    }
-}
 int ph_think(t_ph *ph, int flag)
 {
+    if (access_status(0, 0, ph->data) != RUN)
+        return (1);
     display_msg(ph, "is thinking");
-    if (!ph->id % 2 && !flag)
+    if (ph->id % 2 && !flag)
     {
         ms_usleep(ph->data->t_to_eat);
         return 0;
@@ -35,9 +30,9 @@ int ph_think(t_ph *ph, int flag)
 }
 int ph_sleep(t_ph *ph)
 {
-    display_msg(ph, "is sleeping");
     if (access_status(0, 0, ph->data) != RUN)
         return (1);
+    display_msg(ph, "is sleeping");
     ms_usleep(ph->data->t_to_sleep);
     return (0);
 }
@@ -46,11 +41,11 @@ void *philo_routine(void *p)
     t_ph *ph;
     ph = (t_ph *)p;
     
-    wait_sim_to_run(ph);
+    wait_sim_to_run(ph->data);
     pthread_mutex_lock(&(ph->mutex));
     ph->last_meal = get_time();
     pthread_mutex_unlock(&(ph->mutex));
-    if (!ph->id % 2)
+    if (ph->id % 2)
         ph_think(ph, 0);
     
     while (access_status(0, 0, ph->data) == RUN)

@@ -74,6 +74,7 @@ int run_simulation(t_data *data);
 //bool access_bool(bool f, bool value, void *p, pthread_mutex_t *mutex);
 t_type access_status(bool f, t_type type, t_data *d);
 void display_msg(t_ph *ph, char *s);
+void wait_sim_to_run(t_data *data);
 
 //routines
 void    *philo_routine(void *p);

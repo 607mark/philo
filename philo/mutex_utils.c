@@ -12,6 +12,12 @@
 
 #include "philo.h"
 
+void wait_sim_to_run(t_data *data)
+{
+    while(access_status(0, 0, data) != RUN)
+        usleep(100);
+}
+
 void display_msg(t_ph *ph, char *s)
 {
 	pthread_mutex_lock(&(ph->data->msg_mutex));
