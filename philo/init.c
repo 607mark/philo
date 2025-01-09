@@ -64,6 +64,7 @@ int init_philos(t_data *data)
         data->philos[i].data = (void *)data;
         data->philos[i].last_meal = get_time();
         i++;
+        data->n_philos_init = i;
     }
     return (0);
 }
@@ -78,12 +79,14 @@ int malloc_threads(t_data *data)
 
 int init_simulation(t_data *data)
 {
-    if (pthread_mutex_init(&(data->main_mutex), NULL))
-            return (1);
     if (pthread_mutex_init(&(data->msg_mutex), NULL))
             return (1);
+    else
+        data->msg_mutex_init_status = true;
     if (pthread_mutex_init(&(data->status_mutex), NULL))
             return (1);
+    else
+        data->status_mutex_init_status = true;
     if (init_philos(data))
         return (1);
     if (init_forks((data)))

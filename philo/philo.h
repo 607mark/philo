@@ -37,6 +37,7 @@ typedef struct s_ph
 typedef struct s_data
 {
 	unsigned long long	n_philos;
+	unsigned long long	n_philos_init;
 	unsigned long long	t_to_die;
 	unsigned long long	t_to_eat;
 	unsigned long long	t_to_sleep;
@@ -45,9 +46,10 @@ typedef struct s_data
 	bool	endless;
 	t_type	status;
 	unsigned long long  t_simulation_start;
-	pthread_mutex_t main_mutex;
 	pthread_mutex_t msg_mutex;
+	bool msg_mutex_init_status;
 	pthread_mutex_t status_mutex;
+	bool status_mutex_init_status;
 	pthread_mutex_t *forks;
 	unsigned long long n_fork_mutex_init;
 	t_ph *philos;
@@ -71,7 +73,6 @@ int init_simulation(t_data *data);
 int run_simulation(t_data *data);
 
 // mutex utils
-//bool access_bool(bool f, bool value, void *p, pthread_mutex_t *mutex);
 t_type access_status(bool f, t_type type, t_data *d);
 void display_msg(t_ph *ph, char *s);
 void wait_sim_to_run(t_data *data);

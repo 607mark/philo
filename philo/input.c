@@ -17,6 +17,7 @@ int print_err_return(char *s, int r)
 	int	i;
 	
 	i = 0;
+	write(2, "Error: ", 7);
 	while (*(s + i))
 		i++;
 	write(2, s, i);

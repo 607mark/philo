@@ -49,6 +49,8 @@ static int create_ph_th(t_ph *ph, pthread_t *th, t_data *d)
 
 int run_simulation(t_data *d)
 {
+    unsigned long long i;
+
     if ((d->t_to_die - d->t_to_eat - d->t_to_sleep) > 0)
         d->t_to_think = (d->t_to_die - d->t_to_eat - d->t_to_sleep) / 2;
     if (create_ph_th(d->philos, d->threads, d))
@@ -58,12 +60,14 @@ int run_simulation(t_data *d)
     usleep(200);
     d->t_simulation_start = get_time();
     access_status(1, RUN, d);
-    for (unsigned long long i = 0; i < d->n_philos; i++) {
+    i = 0;
+    while(i < d->n_philos)
+    {
         if (pthread_join(d->threads[i], NULL))
             return (print_err_return("error joining philosopher thread\n", 1));
+        i++;
     }
     if (pthread_join(d->monitor, NULL))
         return (print_err_return("error joining monitor thread\n", 1));
-    
     return (0);
 }
