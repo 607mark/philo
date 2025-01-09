@@ -26,7 +26,7 @@ static int	num_check(const char *s)
 
 	i = 0;
 	if (!s || *s == 0)
-		return (print_err_return("input contains empty arguments\n", 1));
+		return (print_err_return(ERR_INPUT_EMPTY, 1));
 	while (*(s + i))
 	{
 		if (*(s + i) >= '0' && *(s + i) <= '9')
@@ -35,7 +35,7 @@ static int	num_check(const char *s)
 			continue ;
 		}
 		else
-			return (print_err_return("input contains non-numeric chars\n", 1));
+			return (print_err_return(ERR_INPUT_NONNUM, 1));
 	}
 	return (0);
 }
@@ -51,7 +51,7 @@ int	ph_str_to_num(const char *s, unsigned long long *ret)
 	{
 		res = res * 10 + (*(s++) - '0');
 		if (res * 10 >= ULLONG_MAX)
-			return (print_err_return("too big number in the input\n", 1));
+			return (print_err_return(ERR_INPUT_BIG, 1));
 	}
 	*ret = res;
 	return (0);

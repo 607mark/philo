@@ -6,94 +6,94 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:44:44 by mshabano          #+#    #+#             */
-/*   Updated: 2024/12/19 14:44:48 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:54:46 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int populate_philos(t_data *data)
+int	populate_philos(t_data *d)
 {
-	unsigned long long i;
+	unsigned long long	i;
 
 	i = 0;
-	while(i < data->n_philos - 1)
+	while (i < d->n_philos - 1)
 	{
-		data->philos[i].left = &(data->forks[i]);
-		data->philos[i].right = &(data->forks[i + 1]);
+		d->philos[i].left = &(d->forks[i]);
+		d->philos[i].right = &(d->forks[i + 1]);
 		i++;
 	}
-	if (data->n_philos > 1)
-	data->philos[data->n_philos - 1].right = &(data->forks[data->n_philos - 1]);
-	data->philos[data->n_philos - 1].left = &(data->forks[0]);
-	return (0);
-
-}
-
-
-int init_forks(t_data *data)
-{
-	unsigned long long i;
-
-	data->forks = malloc(data->n_philos * sizeof(pthread_mutex_t));
-	if (!data->forks)
-		return (1);
-	i = 0;
-	while ( i < data->n_philos)
-	{
-		if (pthread_mutex_init(&(data->forks[i]), NULL))
-			return (1);
-		i++;
-		data->n_fork_mutex_init = i;
-	} 
+	if (d->n_philos > 1)
+		d->philos[d->n_philos - 1].right = &(d->forks[d->n_philos - 1]);
+	d->philos[d->n_philos - 1].left = &(d->forks[0]);
 	return (0);
 }
-int init_philos(t_data *data)
+
+int	init_forks(t_data *d)
 {
-	unsigned long long i;
-	data->philos = malloc(data->n_philos * sizeof(t_ph));
-	if (!data->philos)
+	unsigned long long	i;
+
+	d->forks = malloc(d->n_philos * sizeof(pthread_mutex_t));
+	if (!d->forks)
 		return (1);
 	i = 0;
-	memset(data->philos, 0, sizeof(t_ph) * data->n_philos);
-	while(i < data->n_philos)
+	while (i < d->n_philos)
 	{
-		if (pthread_mutex_init(&(data->philos[i].mutex), NULL))
+		if (pthread_mutex_init(&(d->forks[i]), NULL))
 			return (1);
-		data->philos[i].id = i;
-		data->philos[i].data = (void *)data;
-		data->philos[i].last_meal = get_time();
 		i++;
-		data->n_philos_init = i;
+		d->n_fork_mutex_init = i;
 	}
 	return (0);
 }
 
-int malloc_threads(t_data *data)
+int	init_philos(t_data *d)
 {
-	data->threads = malloc(data->n_philos * sizeof(pthread_t));
-	if (!data->threads)
+	unsigned long long	i;
+
+	d->philos = malloc(d->n_philos * sizeof(t_ph));
+	if (!d->philos)
 		return (1);
-	return (0); 
+	i = 0;
+	memset(d->philos, 0, sizeof(t_ph) * d->n_philos);
+	while (i < d->n_philos)
+	{
+		if (pthread_mutex_init(&(d->philos[i].mutex), NULL))
+			return (1);
+		d->philos[i].id = i;
+		d->philos[i].data = (void *)d;
+		d->philos[i].last_meal = get_time();
+		i++;
+		d->n_philos_init = i;
+	}
+	return (0);
 }
 
-int init_simulation(t_data *data)
+int	malloc_threads(t_data *d)
 {
-	if (pthread_mutex_init(&(data->msg_mutex), NULL))
-			return (1);
+	d->threads = malloc(d->n_philos * sizeof(pthread_t));
+	if (!d->threads)
+		return (1);
+	return (0);
+}
+
+int	init_simulation(t_data *d)
+{
+	if (pthread_mutex_init(&(d->msg_mutex), NULL))
+		return (1);
 	else
-		data->msg_mutex_init_status = true;
-	if (pthread_mutex_init(&(data->status_mutex), NULL))
-			return (1);
+		d->msg_mutex_init_status = true;
+	if (pthread_mutex_init(&(d->status_mutex), NULL))
+		return (1);
 	else
-		data->status_mutex_init_status = true;
-	if (init_philos(data))
+		d->status_mutex_init_status = true;
+	if (init_philos(d))
 		return (1);
-	if (init_forks((data)))
+	if (init_forks((d)))
 		return (1);
-	if (populate_philos(data))
+	if (populate_philos(d))
 		return (1);
-	if (malloc_threads(data))
+	if (malloc_threads(d))
 		return (1);
 	return (0);
 }
