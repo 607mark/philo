@@ -6,19 +6,19 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:19:19 by mshabano          #+#    #+#             */
-/*   Updated: 2024/12/13 23:56:01 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:51:45 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int destroy_philos_mutexes(t_data *data)
+int	destroy_philos_mutexes(t_data *data)
 {
-	unsigned long long i;
+	unsigned long long	i;
 
 	i = 0;
 	if (!data->philos)
-		return(0);
+		return (0);
 	while (i < data->n_philos_init)
 	{
 		if (pthread_mutex_destroy(&data->philos[i].mutex))
@@ -28,9 +28,10 @@ int destroy_philos_mutexes(t_data *data)
 	return (0);
 }
 
-int destroy_forks(t_data *data)
+int	destroy_forks(t_data *data)
 {
-	unsigned long long i;
+	unsigned long long	i;
+
 	i = 0;
 	if (!data)
 		return (0);
@@ -43,7 +44,7 @@ int destroy_forks(t_data *data)
 	return (0);
 }
 
-int destroy_mutexes(t_data *data)
+int	destroy_mutexes(t_data *data)
 {
 	if (!data)
 		return (0);
@@ -58,18 +59,19 @@ int destroy_mutexes(t_data *data)
 	return (0);
 }
 
-int finish_simulation( t_data *data)
+int	finish_simulation( t_data *data)
 {
 	destroy_mutexes(data);
 	free_heap_allocated(data);
 	return (1);
 }
-int main(int ac, char **av)
+
+int	main(int ac, char **av)
 {
-	t_data data;
+	t_data	data;
 
 	if (parse_input(ac, av, &data))
-		return(1);
+		return (1);
 	if (validate_input(&data))
 		return (1);
 	if (init_simulation(&data))

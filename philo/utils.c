@@ -6,13 +6,13 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 22:17:42 by mshabano          #+#    #+#             */
-/*   Updated: 2024/12/13 23:55:15 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:36:45 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int free_heap_allocated(t_data *data)
+int	free_heap_allocated(t_data *data)
 {
 	free(data->forks);
 	free(data->philos);
@@ -23,7 +23,7 @@ int free_heap_allocated(t_data *data)
 static int	num_check(const char *s)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!s || *s == 0)
 		return (print_err_return("input contains empty arguments\n", 1));
@@ -32,10 +32,10 @@ static int	num_check(const char *s)
 		if (*(s + i) >= '0' && *(s + i) <= '9')
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		else
-			return (print_err_return("input contains non-numeric characters\n", 1));
+			return (print_err_return("input contains non-numeric chars\n", 1));
 	}
 	return (0);
 }

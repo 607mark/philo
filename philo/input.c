@@ -6,26 +6,25 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 22:18:51 by mshabano          #+#    #+#             */
-/*   Updated: 2024/12/13 23:58:37 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:52:45 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int print_err_return(char *s, int r)
+int	print_err_return(char *s, int r)
 {
 	int	i;
-	
+
 	i = 0;
 	write(2, "Error: ", 7);
 	while (*(s + i))
 		i++;
 	write(2, s, i);
 	return (r);
-}	
+}
 
-
-int validate_input(t_data *data)
+int	validate_input(t_data *data)
 {
 	if (data->n_philos < 1)
 		return (print_err_return("Too few philos(0)\n", 1));
@@ -33,7 +32,8 @@ int validate_input(t_data *data)
 		return (print_err_return("Too many philos\n", 1));
 	return (0);
 }
-int parse_input(int ac, char **av, t_data *data)
+
+int	parse_input(int ac, char **av, t_data *data)
 {
 	memset(data, 0, sizeof(t_data));
 	data->status = INIT;
