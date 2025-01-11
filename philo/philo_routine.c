@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 20:32:29 by mshabano          #+#    #+#             */
-/*   Updated: 2025/01/09 15:23:42 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/12 00:17:49 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	*philo_routine(void *p)
 		ph_think(ph, 0);
 	while (access_status(0, 0, ph->data) == RUN)
 	{
+		if (!(ph->id % 2))
+			usleep(100);
 		if (ph_eat(ph))
 			break ;
 		if (ph_sleep(ph))
