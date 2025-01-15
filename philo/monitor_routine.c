@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 19:07:21 by mshabano          #+#    #+#             */
-/*   Updated: 2025/01/09 12:44:30 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:38:08 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*monitor_routine(void *p)
 			access_status(1, INTERRUPT, d);
 			return (NULL);
 		}
-		usleep(50);
+//		usleep(50);
 	}
 	return (NULL);
 }

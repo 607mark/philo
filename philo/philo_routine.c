@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 20:32:29 by mshabano          #+#    #+#             */
-/*   Updated: 2025/01/12 00:17:49 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:09:53 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	ph_think(t_ph *ph, int flag)
 	}
 	if (access_status(0, 0, ph->data) != RUN)
 		return (1);
-	if (ph->data->t_to_think > 0)
-		ms_usleep(ph->data->t_to_think);
+//	if (ph->data->t_to_think > 0)
+//		ms_usleep(ph->data->t_to_think);
 	return (0);
 }
 
