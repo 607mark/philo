@@ -31,6 +31,8 @@ int	validate_input(t_data *data)
 		return (print_err_return(ERR_TOO_FEW, 1));
 	if (data->n_philos > 300)
 		return (print_err_return(ERR_TOO_MANY, 1));
+	if (data->n_t_to_eat == 0 && data->endless == 0)
+		return (1);
 	return (0);
 }
 

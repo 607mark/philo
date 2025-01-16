@@ -38,16 +38,11 @@ int	ph_eat(t_ph *ph)
 {
 	if (lock_forks(ph))
 		return (1);
-	display_msg(ph, "is eating");
 	pthread_mutex_lock(&(ph->mutex));
 	ph->last_meal = get_time();
 	(ph->meals)++;
 	pthread_mutex_unlock(&(ph->mutex));
-	if (access_status(0, 0, ph->data) != RUN)
-	{
-		unlock_forks(ph);
-		return (1);
-	}
+	display_msg(ph, "is eating");
 	ms_usleep(ph->data->t_to_eat);
 	unlock_forks(ph);
 	return (0);

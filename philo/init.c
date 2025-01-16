@@ -60,7 +60,7 @@ int	init_philos(t_data *d)
 	{
 		if (pthread_mutex_init(&(d->philos[i].mutex), NULL))
 			return (1);
-		d->philos[i].id = i;
+		d->philos[i].id = i + 1;
 		d->philos[i].data = (void *)d;
 		d->philos[i].last_meal = get_time();
 		i++;

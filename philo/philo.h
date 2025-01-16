@@ -20,7 +20,6 @@
 # include <string.h>
 # include <pthread.h>
 # include <stdbool.h>
-# include <stdint.h>
 # include <limits.h>
 # include <sys/time.h>
 
@@ -36,8 +35,6 @@ typedef struct s_ph
 {
 	int					id;
 	pthread_t			th;
-	bool				dead;
-	bool				eating;
 	unsigned long long	meals;
 	unsigned long long	last_meal;
 	pthread_mutex_t		mutex;
