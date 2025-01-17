@@ -21,29 +21,38 @@ int	unlock_forks(t_ph *ph)
 
 int	lock_forks(t_ph *ph)
 {
-	pthread_mutex_lock(ph->left);
-	display_msg(ph, "has taken a fork");
-	if (ph->data->n_philos > 1)
+	if (ph->id % 2)
+	{
 		pthread_mutex_lock(ph->right);
+		display_msg(ph, "has taken a fork");
+		pthread_mutex_lock(ph->left);
+		display_msg(ph, "has taken a fork");
+	}
 	else
 	{
-		pthread_mutex_unlock(ph->left);
-		return (1);
+		pthread_mutex_lock(ph->left);
+		display_msg(ph, "has taken a fork");
+		pthread_mutex_lock(ph->right);
+		display_msg(ph, "has taken a fork");
 	}
-	display_msg(ph, "has taken a fork");
 	return (0);
 }
 
 int	ph_eat(t_ph *ph)
 {
+	long long st;
 	if (lock_forks(ph))
 		return (1);
+	st = get_time();
 	pthread_mutex_lock(&(ph->mutex));
 	ph->last_meal = get_time();
 	(ph->meals)++;
 	pthread_mutex_unlock(&(ph->mutex));
 	display_msg(ph, "is eating");
-	ms_usleep(ph->data->t_to_eat);
-	unlock_forks(ph);
+	while (get_time() - st < ph->data->t_to_eat)
+		usleep(50);
+	pthread_mutex_unlock(ph->right);
+	pthread_mutex_unlock(ph->left);
+	
 	return (0);
 }

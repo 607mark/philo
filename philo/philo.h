@@ -94,5 +94,6 @@ int					ph_eat(t_ph *ph);
 unsigned long long	get_time(void);
 int					ms_usleep(unsigned long long ms);
 unsigned long long	timestamp_in_ms(t_data *data);
+void delay(int n);
 
 #endif

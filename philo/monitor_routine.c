@@ -17,11 +17,10 @@ int	check_philo_state(t_data *d, int i, bool *a_ate)
 	pthread_mutex_lock(&(d->philos[i].mutex));
 	if (get_time() - d->philos[i].last_meal > d->t_to_die)
 	{
-		pthread_mutex_lock(&(d->msg_mutex));
 		access_status(1, INTERRUPT, d);
+		pthread_mutex_lock(&(d->msg_mutex));
 		printf("%llu %u %s\n", timestamp_in_ms(d), d->philos[i].id, "died");
 		pthread_mutex_unlock(&(d->philos[i].mutex));
-		usleep(500);
 		pthread_mutex_unlock(&(d->msg_mutex));
 		return (1);
 	}
@@ -36,24 +35,29 @@ void	*monitor_routine(void *p)
 	t_data				*d;
 	unsigned long long	i;
 	bool				all_ate;
-
+	unsigned long long timestamp;
 	d = (t_data *)p;
 	wait_sim_to_run(d);
+	usleep(500);
 	while (1)
 	{
+		usleep(5000);
+		delay(1000);
+		usleep(800);
 		i = -1;
 		all_ate = true;
+		timestamp = timestamp_in_ms(d);
 		while (++i < d->n_philos)
 		{
 			if (check_philo_state(d, i, &all_ate))
 				return (NULL);
-			usleep(100);
 		}
 		if (!d->endless && all_ate)
 		{
 			access_status(1, INTERRUPT, d);
 			return (NULL);
 		}
+
 	}
 	return (NULL);
 }
