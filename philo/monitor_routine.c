@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 19:07:21 by mshabano          #+#    #+#             */
-/*   Updated: 2025/01/16 18:48:51 by mshabano         ###   ########.fr       */
+/*   Updated: 2025/01/18 23:27:52 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*monitor_routine(void *p)
 	t_data				*d;
 	unsigned long long	i;
 	bool				all_ate;
-	unsigned long long timestamp;
+//	unsigned long long timestamp;
 	d = (t_data *)p;
 	wait_sim_to_run(d);
 	usleep(500);
@@ -46,7 +46,7 @@ void	*monitor_routine(void *p)
 		usleep(800);
 		i = -1;
 		all_ate = true;
-		timestamp = timestamp_in_ms(d);
+	//	timestamp = timestamp_in_ms(d);
 		while (++i < d->n_philos)
 		{
 			if (check_philo_state(d, i, &all_ate))
