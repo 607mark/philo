@@ -41,9 +41,9 @@ void	*monitor_routine(void *p)
 	usleep(500);
 	while (1)
 	{
-		usleep(5000);
+		usleep(9000);
 		delay(1000);
-		usleep(800);
+		usleep(500);
 		i = -1;
 		all_ate = true;
 	//	timestamp = timestamp_in_ms(d);
