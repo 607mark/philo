@@ -16,7 +16,8 @@ int	ph_think(t_ph *ph, int flag)
 {
 	long long	st;
 
-	display_msg(ph, "is thinking");
+	if (flag)
+		display_msg(ph, "is thinking");
 	if (ph->id % 2 && !flag)
 	{
 		st = get_time();
@@ -38,12 +39,12 @@ int	ph_sleep(t_ph *ph)
 	return (0);
 }
 
-void delay(int n)
+void	*lonely_philo(t_ph *ph)
 {
-	struct timeval time;
-
-	gettimeofday(&time, 0);
-	usleep(time.tv_usec % n);
+	pthread_mutex_lock(ph->left);
+	display_msg(ph, "has taken a fork");
+	pthread_mutex_unlock(ph->left);
+	return (0);
 }
 
 void	*philo_routine(void *p)
@@ -53,19 +54,13 @@ void	*philo_routine(void *p)
 	ph = (t_ph *)p;
 	wait_sim_to_run(ph->data);
 	if (ph->data->n_philos == 1)
-	{
-		pthread_mutex_lock(ph->left);
-		display_msg(ph, "has taken a fork");
-		pthread_mutex_unlock(ph->left);
-		return (0);
-	}
+		return (lonely_philo(ph));
 	pthread_mutex_lock(&(ph->mutex));
 	ph->last_meal = get_time();
 	pthread_mutex_unlock(&(ph->mutex));
 	display_msg(ph, "is thinking");
 	if (ph->id % 2)
 		ph_think(ph, 0);
-	delay(1000);
 	while (access_status(0, 0, ph->data) == RUN)
 	{
 		if (ph_eat(ph))

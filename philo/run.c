@@ -46,7 +46,7 @@ int	run_simulation(t_data *d)
 		return (print_err_return(ERR_CREAT_PH_THR, 1));
 	if (create_monitor_th(d))
 		return (print_err_return(ERR_CREAT_MON_THR, 1));
-	usleep(200);
+	delay(1000);
 	d->t_simulation_start = get_time();
 	access_status(1, RUN, d);
 	i = 0;

@@ -14,8 +14,16 @@
 
 int	unlock_forks(t_ph *ph)
 {
-	pthread_mutex_unlock(ph->left);
-	pthread_mutex_unlock(ph->right);
+	if (ph->id % 2)
+	{
+		pthread_mutex_unlock(ph->right);
+		pthread_mutex_unlock(ph->left);
+	}
+	else
+	{
+		pthread_mutex_unlock(ph->left);
+		pthread_mutex_unlock(ph->right);
+	}
 	return (0);
 }
 
@@ -40,12 +48,14 @@ int	lock_forks(t_ph *ph)
 
 int	ph_eat(t_ph *ph)
 {
-	long long st;
-	if (lock_forks(ph))
-		return (1);
+	long long	st;
+
+	lock_forks(ph);
 	st = get_time();
 	pthread_mutex_lock(&(ph->mutex));
 	ph->last_meal = get_time();
+	pthread_mutex_unlock(&(ph->mutex));
+	pthread_mutex_lock(&(ph->mutex));
 	(ph->meals)++;
 	pthread_mutex_unlock(&(ph->mutex));
 	display_msg(ph, "is eating");
@@ -53,6 +63,5 @@ int	ph_eat(t_ph *ph)
 		usleep(50);
 	pthread_mutex_unlock(ph->right);
 	pthread_mutex_unlock(ph->left);
-	
 	return (0);
 }

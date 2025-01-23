@@ -35,18 +35,16 @@ void	*monitor_routine(void *p)
 	t_data				*d;
 	unsigned long long	i;
 	bool				all_ate;
-//	unsigned long long timestamp;
+
 	d = (t_data *)p;
 	wait_sim_to_run(d);
 	usleep(500);
 	while (1)
 	{
-		usleep(9000);
 		delay(1000);
 		usleep(500);
 		i = -1;
 		all_ate = true;
-	//	timestamp = timestamp_in_ms(d);
 		while (++i < d->n_philos)
 		{
 			if (check_philo_state(d, i, &all_ate))
@@ -57,7 +55,6 @@ void	*monitor_routine(void *p)
 			access_status(1, INTERRUPT, d);
 			return (NULL);
 		}
-
 	}
 	return (NULL);
 }

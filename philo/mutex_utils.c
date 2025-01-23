@@ -12,11 +12,18 @@
 
 #include "philo.h"
 
+void	delay(int n)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, 0);
+	usleep(n - time.tv_usec % n);
+}
+
 void	wait_sim_to_run(t_data *data)
 {
 	while (access_status(0, 0, data) != RUN)
-		usleep(50);
-	delay(1000);
+		(true);
 }
 
 void	display_msg(t_ph *ph, char *s)
