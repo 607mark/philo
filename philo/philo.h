@@ -90,8 +90,8 @@ void				*monitor_routine(void *p);
 int					ph_eat(t_ph *ph);
 
 //time utils
+void				delay(int n);
 unsigned long long	get_time(void);
 unsigned long long	timestamp_in_ms(t_data *data);
-void				delay(int n);
 
 #endif
