@@ -22,7 +22,11 @@ int	ph_think(t_ph *ph, int flag)
 	{
 		st = get_time();
 		while (get_time() - st < ph->data->t_to_eat / 2)
+		{
+			if (access_status(0, 0, ph->data) != RUN)
+				return (1);
 			usleep(50);
+		}
 		return (0);
 	}
 	return (0);
@@ -35,7 +39,11 @@ int	ph_sleep(t_ph *ph)
 	st = get_time();
 	display_msg(ph, "is sleeping");
 	while (get_time() - st < ph->data->t_to_sleep)
+	{
+		if (access_status(0, 0, ph->data) != RUN)
+			return (1);
 		usleep(50);
+	}
 	return (0);
 }
 

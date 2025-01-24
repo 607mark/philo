@@ -51,7 +51,6 @@ typedef struct s_data
 	unsigned long long	t_to_eat;
 	unsigned long long	t_to_sleep;
 	unsigned long long	n_t_to_eat;
-	long long			t_to_think;
 	bool				endless;
 	t_type				status;
 	unsigned long long	t_simulation_start;
@@ -92,7 +91,6 @@ int					ph_eat(t_ph *ph);
 
 //time utils
 unsigned long long	get_time(void);
-int					ms_usleep(unsigned long long ms);
 unsigned long long	timestamp_in_ms(t_data *data);
 void				delay(int n);
 

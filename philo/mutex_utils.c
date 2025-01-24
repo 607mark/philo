@@ -23,7 +23,7 @@ void	delay(int n)
 void	wait_sim_to_run(t_data *data)
 {
 	while (access_status(0, 0, data) != RUN)
-		(true);
+		usleep(50);
 }
 
 void	display_msg(t_ph *ph, char *s)

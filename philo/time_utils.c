@@ -26,13 +26,3 @@ unsigned long long	get_time(void)
 		return (print_err_return(ERR_GET_TIME, 0));
 	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }
-
-int	ms_usleep(unsigned long long ms)
-{
-	unsigned long long	st;
-
-	st = get_time();
-	while (get_time() - st < ms)
-		usleep(50);
-	return (1);
-}

@@ -40,8 +40,6 @@ int	run_simulation(t_data *d)
 {
 	unsigned long long	i;
 
-	if ((d->t_to_die - d->t_to_eat - d->t_to_sleep) > 0)
-		d->t_to_think = (d->t_to_die - d->t_to_eat - d->t_to_sleep) / 2;
 	if (create_ph_th(d->philos, d->threads, d))
 		return (print_err_return(ERR_CREAT_PH_THR, 1));
 	if (create_monitor_th(d))

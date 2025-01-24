@@ -24,7 +24,7 @@ int	unlock_forks(t_ph *ph)
 		pthread_mutex_unlock(ph->left);
 		pthread_mutex_unlock(ph->right);
 	}
-	return (0);
+	return (1);
 }
 
 int	lock_forks(t_ph *ph)
@@ -55,13 +55,16 @@ int	ph_eat(t_ph *ph)
 	pthread_mutex_lock(&(ph->mutex));
 	ph->last_meal = get_time();
 	pthread_mutex_unlock(&(ph->mutex));
+	display_msg(ph, "is eating");
+	while (get_time() - st < ph->data->t_to_eat)
+	{
+		if (access_status(0, 0, ph->data) != RUN)
+			return (unlock_forks(ph));
+		usleep(50);
+	}
 	pthread_mutex_lock(&(ph->mutex));
 	(ph->meals)++;
 	pthread_mutex_unlock(&(ph->mutex));
-	display_msg(ph, "is eating");
-	while (get_time() - st < ph->data->t_to_eat)
-		usleep(50);
-	pthread_mutex_unlock(ph->right);
-	pthread_mutex_unlock(ph->left);
+	unlock_forks(ph);
 	return (0);
 }
