@@ -15,7 +15,7 @@
 int	ph_think(t_ph *ph, int flag)
 {
 	long long	st;
-
+	int i = 0;
 	if (flag)
 		display_msg(ph, "is thinking");
 	if (ph->id % 2 && !flag)
@@ -23,9 +23,10 @@ int	ph_think(t_ph *ph, int flag)
 		st = get_time();
 		while (get_time() - st < ph->data->t_to_eat / 2)
 		{
-			if (access_status(0, 0, ph->data) != RUN)
+			if (!(i % 10) && access_status(0, 0, ph->data) != RUN)
 				return (1);
 			usleep(50);
+			i++;
 		}
 		return (0);
 	}
@@ -35,14 +36,16 @@ int	ph_think(t_ph *ph, int flag)
 int	ph_sleep(t_ph *ph)
 {
 	long long	st;
+	long long	i = 0;
 
 	st = get_time();
 	display_msg(ph, "is sleeping");
 	while (get_time() - st < ph->data->t_to_sleep)
 	{
-		if (access_status(0, 0, ph->data) != RUN)
+		if (!(i % 10) && access_status(0, 0, ph->data) != RUN)
 			return (1);
 		usleep(50);
+		i++;
 	}
 	return (0);
 }
