@@ -49,8 +49,9 @@ int	lock_forks(t_ph *ph)
 int	ph_eat(t_ph *ph)
 {
 	long long	st;
+	char		i;
 
-	int i = 0;
+	i = ph->id % 100;
 	lock_forks(ph);
 	st = get_time();
 	pthread_mutex_lock(&(ph->mutex));
@@ -59,7 +60,7 @@ int	ph_eat(t_ph *ph)
 	display_msg(ph, "is eating");
 	while (get_time() - st < ph->data->t_to_eat)
 	{
-		if (!(i % 10) && access_status(0, 0, ph->data) != RUN)
+		if (!(i % 100) && access_status(0, 0, ph->data) != RUN)
 			return (unlock_forks(ph));
 		usleep(50);
 		i++;
