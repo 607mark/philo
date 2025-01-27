@@ -77,11 +77,7 @@ void	*philo_routine(void *p)
 		ph_think(ph, 0);
 	while (access_status(0, 0, ph->data) == RUN)
 	{
-		if (ph_eat(ph))
-			break ;
-		if (ph_sleep(ph))
-			break ;
-		if (ph_think(ph, 1))
+		if (ph_eat(ph) || ph_sleep(ph) || ph_think(ph, 1))
 			break ;
 		delay(1000);
 	}
