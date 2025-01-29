@@ -13,7 +13,7 @@ This project helped me really understand the nitty-gritty of multi-threading and
 - Watch philosophers think, eat, and hopefully not starve
 - Real-deal multi-threading implementation (because philosophers are independent thinkers!)
 - Tweakable settings so you can create your own dinner party scenarios
-- Detailed log of what each philosopher is up to
+- Millisecond precision log of what each philosopher is up to
 
 ## 🚀 Getting Started
 
