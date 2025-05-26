@@ -54,8 +54,4 @@ This sets up a cozy dinner for 5 philosophers who need to eat every 800ms or the
 
 Feel free to play around with the numbers! Want to see what happens with really hungry philosophers? Crank down that death timer! Want to simulate a lengthy Italian dinner? Bump up those eating times! The possibilities are endless.
 
-## 📝 License
-
-This project is under the MIT License - feel free to use it, modify it, or share it with other philosophy enthusiasts!
-
 If you run into any issues or just want to chat about concurrent programming (or actual philosophy!), feel free to open an issue. Happy coding! 🎉
